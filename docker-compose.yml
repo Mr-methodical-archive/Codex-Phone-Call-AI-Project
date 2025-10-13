@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+  db:
+    image: alpine:3.19
+    command: ["sh", "-c", "mkdir -p /data && tail -f /dev/null"]
+    volumes:
+      - ./backend/data:/data
+  migrate:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: deps
+    working_dir: /workspace/backend
+    command: ["npm", "run", "migrate"]
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - backend/.env
+    volumes:
+      - ./backend/data:/workspace/backend/data
+      - ./shared:/workspace/shared
+    depends_on:
+      - db
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: deps
+    working_dir: /workspace/backend
+    command: ["npm", "run", "dev"]
+    ports:
+      - "5000:5000"
+    env_file:
+      - backend/.env
+    volumes:
+      - ./backend:/workspace/backend
+      - ./shared:/workspace/shared
+      - ./backend/data:/workspace/backend/data
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      target: deps
+    working_dir: /workspace/frontend
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/workspace/frontend
+    depends_on:
+      - backend

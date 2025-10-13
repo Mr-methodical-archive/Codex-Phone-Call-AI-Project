@@ -1,0 +1,12 @@
+{
+  "introPrompt": "Thank you for calling ExampleTel. For account services press 1, for new service press 2, for technical support press 3.",
+  "accountMenu": "To check your balance press 1, to make a payment press 2, to speak with a representative press 0.",
+  "balanceMenu": "Please enter or say the last four digits of your account. Otherwise press 0 to speak with an agent.",
+  "agentLines": [
+    "Hi, this is Riley from ExampleTel billing. I see you're calling about your account balance.",
+    "Your current balance is $42.17 due on the 15th. Would you like me to set up an autopay reminder?",
+    "Great! I've noted that you just needed to confirm the balance. Anything else I can help with today?",
+    "Thanks for choosing ExampleTel. Have a wonderful day!"
+  ],
+  "summaryTemplate": "ExampleTel call about {task}. Balance confirmed as $42.17 and no further action requested."
+}
