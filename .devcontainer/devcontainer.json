@@ -1,0 +1,30 @@
+{
+  "name": "ai-call-assistant",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "backend",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/pnpm:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "username": "node"
+    }
+  },
+  "postCreateCommand": "npm install -g npm@latest && npm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bierner.markdown-preview-github",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
